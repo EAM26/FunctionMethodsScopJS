@@ -16,7 +16,7 @@ function getEmailDomain(email) {
         return (email.substring(index + 1))
     }
     // if string has no @, return -1
-    return -1
+    return index;
 }
 console.log("***********************")
 console.log(getEmailDomain("n.eeken@novi-education.nl"))
@@ -69,8 +69,8 @@ console.log(typeOfEmail("a.wiersma@outlook.com"))
 // checkEmailValidity("n.eeken@novinl.") geeft false - want de punt mag niet als laatst
 // checkEmailValidity("tessmellink@novi,nl") geeft false - want er staat een komma in
 function checkEmailValidity(email) {
+    // check for '@' in previous function
     const domain = getEmailDomain(email);
-    // check for @' in previous function
     return domain !== -1 && !email.includes(',') && email[email.length - 1] !== '.';
 }
 
