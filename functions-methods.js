@@ -8,7 +8,20 @@
 // getEmailDomain("n.eeken@novi-education.nl") geeft novi-education.nl
 // getEmailDomain("t.mellink@novi.nl") geeft novi.nl
 // getEmailDomain("a.wiersma@outlook.com") geeft outlook.com
-
+function getEmailDomain(email) {
+    //  get index of @
+    const index = email.indexOf('@')
+    if(index>-1) {
+        // make substring and return
+        return (email.substring(index + 1))
+    }
+    // if string has no @, return -1
+    return -1
+}
+console.log("***********************")
+console.log(getEmailDomain("n.eeken@novi-education.nl"))
+console.log(getEmailDomain("t.mellink@novi.nl"))
+console.log(getEmailDomain("a.wiersma@outlook.com"))
 
 
 
@@ -19,7 +32,28 @@
 // typeOfEmail("t.mellink@novi.nl") geeft geeft "Medewerker"
 // typeOfEmail("novi.nlaapjesk@outlook.com") geeft geeft "Extern" <-- deze moet het ook doen!
 // typeOfEmail("a.wiersma@outlook.com") geeft "Extern"
+function typeOfEmail(email) {
+    //get whole domain name
+    const domainAndExtension = getEmailDomain(email);
+    // get domain name without .extension
+    const domainName = domainAndExtension.substring(0, domainAndExtension.indexOf("."));
+    // check for known domain-names
+    if(domainName.includes("novi-education")) {
+        return "Student";
+    } else if(domainName.includes("novi")) {
+        return "Medewerker"
+    } else if(domainName.includes("outlook") || domainName.includes("gmail" || domainName.includes("hotmail"))) {
+        return "Extern"
+    } else {
+        return "Unknown"
+    }
+}
 
+console.log("*******************")
+console.log(typeOfEmail("n.eeken@novi-education.nl"))
+console.log(typeOfEmail("t.mellink@novi.nl"))
+console.log(typeOfEmail("novi.nlaapjesk@outlook.com"))
+console.log(typeOfEmail("a.wiersma@outlook.com"))
 
 
 /* Opdracht  3 */
@@ -34,3 +68,15 @@
 // checkEmailValidity("n.eekenanovi.nl") geeft false - want geen @
 // checkEmailValidity("n.eeken@novinl.") geeft false - want de punt mag niet als laatst
 // checkEmailValidity("tessmellink@novi,nl") geeft false - want er staat een komma in
+function checkEmailValidity(email) {
+    const domain = getEmailDomain(email);
+    // check for @' in previous function
+    return domain !== -1 && !email.includes(',') && email[email.length - 1] !== '.';
+}
+
+console.log("*****************")
+console.log(checkEmailValidity("n.eeken@novi.nl"))
+console.log(checkEmailValidity("tessmellink@novi.nl"))
+console.log(checkEmailValidity("n.eekenanovi.nl"));
+console.log(checkEmailValidity("n.eeken@novinl."))
+console.log(checkEmailValidity("tessmellink@novi,nl"))
